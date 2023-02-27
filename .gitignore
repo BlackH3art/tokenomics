@@ -1,0 +1,15 @@
+client/node_modules
+client/dist
+client/dist-ssr
+.vscode
+
+client/npm-debug.log*
+client/yarn-debug.log*
+client/yarn-error.log*
+client/pnpm-debug.log*
+client/lerna-debug.log*
+
+hardhat/node_modules
+hardhat/artifacts
+hardhat/cache
+hardhat/.env

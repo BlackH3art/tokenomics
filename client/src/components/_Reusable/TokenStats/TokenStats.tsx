@@ -5,6 +5,7 @@ import { StatContainer } from "../StatContainer/StatContainer";
 
 import { numberFromEther } from "../../../utils/numberFromEther";
 import { ConnectWalletContext } from "../../../context/ConnectWalletContext";
+import { useContractEvent } from "wagmi";
 
 
 interface Props {
@@ -27,6 +28,14 @@ export const TokenStats: FC<Props> = ({ contractAddres, ABI, title }) => {
     getTokenStats();
   }, [connectedAccount]);
 
+  useContractEvent({
+    address: `0x${contractAddres.slice(2)}`,
+    abi: ABI,
+    eventName: 'Transfer',
+    listener() {
+      getTokenStats();
+    },
+  });
   
   async function getTokenStats() {
     const tokenCap = await token?.cap()

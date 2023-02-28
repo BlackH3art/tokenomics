@@ -4,6 +4,7 @@ import { TokenStats } from '../_Reusable/TokenStats/TokenStats';
 
 import { tokenABIv1, tokenContractAddress } from "../../contracts/contracts";
 import { MintTokens } from '../_Reusable/MintTokens/MintTokens';
+import { BurnTokens } from '../_Reusable/BurnTokens/BurnTokens';
 
 
 export const TokenV1: FC = () => {
@@ -17,6 +18,11 @@ export const TokenV1: FC = () => {
       />
 
       <MintTokens 
+        contractAddres={tokenContractAddress}
+        ABI={tokenABIv1}
+      />
+
+      <BurnTokens 
         contractAddres={tokenContractAddress}
         ABI={tokenABIv1}
       />

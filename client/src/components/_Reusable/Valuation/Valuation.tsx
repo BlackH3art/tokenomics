@@ -1,4 +1,5 @@
-import { FC, ChangeEventHandler, ChangeEvent, useState } from "react";
+import { FC, ChangeEventHandler, ChangeEvent, useState, useContext } from "react";
+import { PriceContext } from "../../../context/PriceContext";
 import { ValuationRow } from "../ValuationRow/ValuationRow";
 
 export const Valuation: FC = () => {
@@ -13,6 +14,8 @@ export const Valuation: FC = () => {
     publicSalePrice: "",
     publicSaleAllocation: ""
   });
+  const { ethereumPrice } = useContext(PriceContext);
+
 
   const handleChange: ChangeEventHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setValuationData({
@@ -22,7 +25,7 @@ export const Valuation: FC = () => {
   }
 
   const pricePerToken = Number(valuationData.capitalization) / Number(valuationData.totalSupply);
-  const initialTokenPrice = Number(valuationData.liquidityPoolPrice) * Number(valuationData.liquidityAllocation);
+  const liquidityValue = Number(valuationData.liquidityPoolPrice) * Number(valuationData.liquidityAllocation);
   const privateRaisedFunds = Number(valuationData.privateSalePrice) * Number(valuationData.privateSaleAllocation);
   const publiclyRaisedFunds = Number(valuationData.publicSalePrice) * Number(valuationData.publicSaleAllocation);
 
@@ -60,8 +63,8 @@ export const Valuation: FC = () => {
             secondInputName="liquidityAllocation"
             secondInputPlaceholder="tokens amount"
             secondInputValue={valuationData.liquidityAllocation}
-            resultLabel="Second pool token amount"
-            resultValue={isNaN(initialTokenPrice) ? "0" : `$${new Intl.NumberFormat('en-US', { }).format(initialTokenPrice)}`}
+            resultLabel="Second pool token value"
+            resultValue={isNaN(liquidityValue) ? "0" : `$${new Intl.NumberFormat('en-US', { }).format(liquidityValue)} / ${(liquidityValue / Number(ethereumPrice)).toFixed(4)} ETH`}
             handleChange={handleChange}
             sign="*"
           />
@@ -76,7 +79,7 @@ export const Valuation: FC = () => {
             secondInputPlaceholder="tokens amount"
             secondInputValue={valuationData.privateSaleAllocation}
             resultLabel="Privately raised funds"
-            resultValue={isNaN(privateRaisedFunds) ? "0" : `$${new Intl.NumberFormat('en-US', { }).format(privateRaisedFunds)}`}
+            resultValue={isNaN(privateRaisedFunds) ? "0" : `$${new Intl.NumberFormat('en-US', { }).format(privateRaisedFunds)} / ${(privateRaisedFunds / Number(ethereumPrice)).toFixed(4)} ETH`}
             handleChange={handleChange}
             sign="*"
           />
@@ -91,7 +94,7 @@ export const Valuation: FC = () => {
             secondInputPlaceholder="tokens amount"
             secondInputValue={valuationData.publicSaleAllocation}
             resultLabel="Publicly raised funds"
-            resultValue={isNaN(publiclyRaisedFunds) ? "0" : `$${new Intl.NumberFormat('en-US', { }).format(publiclyRaisedFunds)}`}
+            resultValue={isNaN(publiclyRaisedFunds) ? "0" : `$${new Intl.NumberFormat('en-US', { }).format(publiclyRaisedFunds)}  / ${(publiclyRaisedFunds / Number(ethereumPrice)).toFixed(4)} ETH`}
             handleChange={handleChange}
             sign="*"
           />

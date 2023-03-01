@@ -1,5 +1,6 @@
 import { ChangeEvent, ChangeEventHandler, FC, FormEvent, FormEventHandler, useState } from "react";
 import { useContractWrite, usePrepareContractWrite } from "wagmi";
+import { ClipLoader } from 'react-spinners';
 
 interface Props {
   contractAddres: string;
@@ -24,7 +25,7 @@ export const MintTokens: FC<Props> = ({ contractAddres, ABI }) => {
     functionName: "mint",
     args: [mintingData.to, mintingData.amount]
   });
-  const { isSuccess, isLoading, write: mint, isError } = useContractWrite(config);
+  const { isLoading, write: mint } = useContractWrite(config);
 
 
   const handleChange: ChangeEventHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -59,8 +60,8 @@ export const MintTokens: FC<Props> = ({ contractAddres, ABI }) => {
               <input name="amount" type="text" placeholder="amount" onChange={handleChange} className="p-2 px-3 w-full text-sm rounded-lg bg-gray-100 outline outline-1 outline-gray-400" />
             </label>
 
-            <button type="submit" className="place-self-end w-full rounded-lg bg-blue-500 border-[1px] border-blue-500 text-sm text-white font-semibold py-2 mt-5">
-              mint
+            <button type="submit" disabled={isLoading} className="place-self-end w-full rounded-lg bg-blue-500 border-[1px] border-blue-500 text-sm text-white font-semibold py-2 mt-5">
+              {isLoading ? <ClipLoader size={14} color="#ffffff" /> : "mint"}
             </button>
           </form>
 

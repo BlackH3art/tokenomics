@@ -3,8 +3,6 @@ import { useAccount, useConnect } from 'wagmi';
 
 import { ConnectWalletContextInterface } from '../interfaces/ConnectWalletContextInterface';
 
-const { ethereum } = window;
-
 export const ConnectWalletContext = createContext<ConnectWalletContextInterface>({
   connectWallet: () => {},
   connectedAccount: "",

@@ -8,6 +8,7 @@ import { goerli, mainnet } from 'wagmi/chains';
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 import { publicProvider } from 'wagmi/providers/public';
 import { ConnectWalletContextProvider } from './context/ConnectWalletContext';
+import { PriceContextProvider } from './context/PriceContext';
 
 const { chains, provider, webSocketProvider } = configureChains(
   [goerli],
@@ -27,7 +28,9 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <WagmiConfig client={client}>
       <ConnectWalletContextProvider>
-        <App />
+        <PriceContextProvider>
+          <App />
+        </PriceContextProvider>
       </ConnectWalletContextProvider>
     </WagmiConfig>
   </React.StrictMode>,

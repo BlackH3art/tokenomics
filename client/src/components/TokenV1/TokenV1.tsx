@@ -10,6 +10,7 @@ import { SingleAllocation } from '../../interfaces/SingleAllocation';
 import { useContractProvider } from '../../hooks/useContractProvider';
 import { numberFromEther } from '../../utils/numberFromEther';
 import { useContractEvent } from 'wagmi';
+import { Valuation } from '../_Reusable/Valuation/Valuation';
 
 
 export const TokenV1: FC = () => {
@@ -68,6 +69,8 @@ export const TokenV1: FC = () => {
         ABI={tokenABIv1}
         allocations={allocations}
       />
+
+      <Valuation />
 
       <MintTokens 
         contractAddres={tokenContractAddress}

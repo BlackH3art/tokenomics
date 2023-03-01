@@ -1,5 +1,5 @@
 import { createContext, ReactNode, FC, useState } from 'react';
-import { useAccount, useConnect } from 'wagmi';
+import { useAccount, useConnect, useNetwork, useSwitchNetwork } from 'wagmi';
 
 import { ConnectWalletContextInterface } from '../interfaces/ConnectWalletContextInterface';
 
@@ -18,9 +18,16 @@ export const ConnectWalletContextProvider: FC<Props> = ({ children }) => {
 
   const { connectAsync, connectors } = useConnect();
   const { address, isConnected } = useAccount();
+  const { chain } = useNetwork()
+  const { switchNetwork } =
+    useSwitchNetwork();
 
 
   const connectWallet = async () => {
+
+    if(chain?.id !== 5) {
+      switchNetwork?.(5);
+    }
     
     if(isConnected && address) {
       setConnectedAccount(address);

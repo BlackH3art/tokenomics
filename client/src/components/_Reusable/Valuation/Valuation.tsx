@@ -55,21 +55,6 @@ export const Valuation: FC = () => {
           />
 
           <ValuationRow 
-            firstLabel="Liquidity pool price"
-            firstInputName="liquidityPoolPrice"
-            firstInputPlaceholder="initial price ($)"
-            firstInputValue={valuationData.liquidityPoolPrice}
-            secondLabel="Liquidity allocation"
-            secondInputName="liquidityAllocation"
-            secondInputPlaceholder="tokens amount"
-            secondInputValue={valuationData.liquidityAllocation}
-            resultLabel="Second pool token value"
-            resultValue={isNaN(liquidityValue) ? "0" : `$${new Intl.NumberFormat('en-US', { }).format(liquidityValue)} / ${(liquidityValue / Number(ethereumPrice)).toFixed(4)} ETH`}
-            handleChange={handleChange}
-            sign="*"
-          />
-
-          <ValuationRow 
             firstLabel="Private sale price"
             firstInputName="privateSalePrice"
             firstInputPlaceholder="private sale price ($)"
@@ -95,6 +80,21 @@ export const Valuation: FC = () => {
             secondInputValue={valuationData.publicSaleAllocation}
             resultLabel="Publicly raised funds"
             resultValue={isNaN(publiclyRaisedFunds) ? "0" : `$${new Intl.NumberFormat('en-US', { }).format(publiclyRaisedFunds)}  / ${(publiclyRaisedFunds / Number(ethereumPrice)).toFixed(4)} ETH`}
+            handleChange={handleChange}
+            sign="*"
+          />
+
+          <ValuationRow 
+            firstLabel="Liquidity pool price"
+            firstInputName="liquidityPoolPrice"
+            firstInputPlaceholder="initial price ($)"
+            firstInputValue={valuationData.liquidityPoolPrice}
+            secondLabel="Liquidity allocation"
+            secondInputName="liquidityAllocation"
+            secondInputPlaceholder="tokens amount"
+            secondInputValue={valuationData.liquidityAllocation}
+            resultLabel="Second pool token value"
+            resultValue={isNaN(liquidityValue) ? "0" : `$${new Intl.NumberFormat('en-US', { }).format(liquidityValue)} / ${(liquidityValue / Number(ethereumPrice)).toFixed(4)} ETH`}
             handleChange={handleChange}
             sign="*"
           />

@@ -50,7 +50,7 @@ export const TokenStats: FC<Props> = ({ contractAddres, ABI, title }) => {
 
 
   return (
-    <section className="w-full flex justify-center">
+    <section className="w-full flex justify-center pt-20">
       <div className="w-full flex flex-col md:w-4/5 xl:w-3/5 items-center border-[1px] border-gray-500 px-5 py-10">
 
         <h1 className="text-3xl font-semibold">

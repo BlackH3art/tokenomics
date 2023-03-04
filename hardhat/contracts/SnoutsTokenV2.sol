@@ -9,6 +9,7 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 contract CrookedSnoutsTokenV2 is ERC20, Ownable {
 
     uint256 public cap = 1_000_000_000 ether;
+    uint256 public burned = 0;
 
     // allocations
     uint foundersAllocation = 100_000_000 ether;
@@ -57,8 +58,9 @@ contract CrookedSnoutsTokenV2 is ERC20, Ownable {
 
     function burn(uint256 amount) external {
         require(cap - amount >= 500_000_000 ether, "Minimal cap reached");
-        _burn(_msgSender(), amount);
         cap -= amount;
+        burned += amount;
+        _burn(_msgSender(), amount);
     }
 
 }

@@ -19,6 +19,7 @@ export const TokenStats: FC<Props> = ({ contractAddres, ABI, title }) => {
   const [cap, setCap] = useState<string>("");
   const [supply, setSupply] = useState<string>("");
   const [balance, setBalance] = useState<string>("")
+  const [burned, setBurned] = useState<string>("")
 
   const { connectedAccount } = useContext(ConnectWalletContext);
 
@@ -38,14 +39,24 @@ export const TokenStats: FC<Props> = ({ contractAddres, ABI, title }) => {
   });
   
   async function getTokenStats() {
-    const tokenCap = await token?.cap()
-    setCap(numberFromEther(tokenCap._hex));
+    try {
+      const tokenCap = await token?.cap()
+      setCap(numberFromEther(tokenCap._hex));
+  
+      const tokenSupply = await token?.totalSupply();
+      setSupply(numberFromEther(tokenSupply._hex));
+  
+      if(connectedAccount) {
+        const tokenBalance = await token?.balanceOf(connectedAccount);
+        setBalance(numberFromEther(tokenBalance._hex));
+      }
+      
+      const tokenBurned = await token?.burned();
+      setBurned(numberFromEther(tokenBurned._hex));
 
-    const tokenSupply = await token?.totalSupply();
-    setSupply(numberFromEther(tokenSupply._hex));
-
-    const tokenBalance = await token?.balanceOf(connectedAccount);
-    setBalance(numberFromEther(tokenBalance._hex));
+    } catch (error) {
+      console.log(error);
+    }
   }
 
 
@@ -63,7 +74,7 @@ export const TokenStats: FC<Props> = ({ contractAddres, ABI, title }) => {
         <div className="flex w-full justify-center py-5">
           <StatContainer title="maximum cap:" value={cap ? cap : "-"} />
           <StatContainer title="total supply:" value={supply ? supply : "-"} />
-          <StatContainer title="burned:" value="-" />
+          <StatContainer title="burned:" value={burned ? burned : "-"} />
           <StatContainer title="your balance:" value={balance ? balance : "-"} />
         </div>
       </div>

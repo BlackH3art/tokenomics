@@ -17,7 +17,10 @@ export const Valuation: FC<Props> = ({ variant }) => {
     privateSalePrice: "",
     privateSaleAllocation: "",
     publicSalePrice: "",
-    publicSaleAllocation: ""
+    publicSaleAllocation: "",
+    marketingFunds: "",
+    developmentFunds: "",
+    givenTokenPrice: "",
   });
   const { ethereumPrice } = useContext(PriceContext);
 
@@ -36,6 +39,8 @@ export const Valuation: FC<Props> = ({ variant }) => {
   const liquidityValue = Number(valuationData.liquidityPoolPrice.replace(/,/g, '')) * Number(valuationData.liquidityAllocation.replace(/,/g, ''));
   const privateRaisedFunds = Number(valuationData.privateSalePrice.replace(/,/g, '')) * Number(valuationData.privateSaleAllocation.replace(/,/g, ''));
   const publiclyRaisedFunds = Number(valuationData.publicSalePrice.replace(/,/g, '')) * Number(valuationData.publicSaleAllocation.replace(/,/g, ''));
+  const marketingFunds = Number(valuationData.marketingFunds.replace(/,/g, '')) * Number(valuationData.givenTokenPrice.replace(/,/g, ''));
+  const developmentFunds = Number(valuationData.developmentFunds.replace(/,/g, '')) * Number(valuationData.givenTokenPrice.replace(/,/g, ''));
 
   return (
     <>
@@ -103,6 +108,36 @@ export const Valuation: FC<Props> = ({ variant }) => {
             secondInputValue={valuationData.liquidityAllocation}
             resultLabel="Second pool token value"
             resultValue={isNaN(liquidityValue) ? "0" : `$${new Intl.NumberFormat('en-US', { }).format(liquidityValue)} / ${(liquidityValue / Number(ethereumPrice)).toFixed(4)} ETH`}
+            handleChange={handleChange}
+            sign="*"
+          />
+
+          <ValuationRow 
+            firstLabel="Marketing funds"
+            firstInputName="marketingFunds"
+            firstInputPlaceholder="tokens amount"
+            firstInputValue={valuationData.marketingFunds}
+            secondLabel="Token price"
+            secondInputName="givenTokenPrice"
+            secondInputPlaceholder="token price"
+            secondInputValue={valuationData.givenTokenPrice}
+            resultLabel="Marketing funds"
+            resultValue={isNaN(marketingFunds) ? "0" : `$${new Intl.NumberFormat('en-US', { }).format(marketingFunds)} / ${(marketingFunds / Number(ethereumPrice)).toFixed(4)} ETH`}
+            handleChange={handleChange}
+            sign="*"
+          />
+
+          <ValuationRow 
+            firstLabel="Development funds"
+            firstInputName="developmentFunds"
+            firstInputPlaceholder="tokens amount"
+            firstInputValue={valuationData.developmentFunds}
+            secondLabel="Token price"
+            secondInputName="givenTokenPrice"
+            secondInputPlaceholder="token price"
+            secondInputValue={valuationData.givenTokenPrice}
+            resultLabel="Marketing funds"
+            resultValue={isNaN(developmentFunds) ? "0" : `$${new Intl.NumberFormat('en-US', { }).format(developmentFunds)} / ${(developmentFunds / Number(ethereumPrice)).toFixed(4)} ETH`}
             handleChange={handleChange}
             sign="*"
           />

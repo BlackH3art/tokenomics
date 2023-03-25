@@ -1,5 +1,6 @@
 import { FC, ChangeEventHandler, ChangeEvent, useState, useContext } from "react";
 import { PriceContext } from "../../../context/PriceContext";
+import { numberWithCommas } from "../../../utils/comaSeparator";
 import { ValuationRow } from "../ValuationRow/ValuationRow";
 
 interface Props {
@@ -22,16 +23,19 @@ export const Valuation: FC<Props> = ({ variant }) => {
 
 
   const handleChange: ChangeEventHandler = (e: ChangeEvent<HTMLInputElement>) => {
+
+    if(isNaN(Number(e.target.value.replace(/,/g, '')))) return;
+    
     setValuationData({
       ...valuationData,
-      [e.target.name]: e.target.value
+      [e.target.name]: numberWithCommas(e.target.value.replace(/,/g, ''))
     });
   }
 
-  const pricePerToken = Number(valuationData.capitalization) / Number(valuationData.totalSupply);
-  const liquidityValue = Number(valuationData.liquidityPoolPrice) * Number(valuationData.liquidityAllocation);
-  const privateRaisedFunds = Number(valuationData.privateSalePrice) * Number(valuationData.privateSaleAllocation);
-  const publiclyRaisedFunds = Number(valuationData.publicSalePrice) * Number(valuationData.publicSaleAllocation);
+  const pricePerToken = Number(valuationData.capitalization.replace(/,/g, '')) / Number(valuationData.totalSupply.replace(/,/g, ''));
+  const liquidityValue = Number(valuationData.liquidityPoolPrice.replace(/,/g, '')) * Number(valuationData.liquidityAllocation.replace(/,/g, ''));
+  const privateRaisedFunds = Number(valuationData.privateSalePrice.replace(/,/g, '')) * Number(valuationData.privateSaleAllocation.replace(/,/g, ''));
+  const publiclyRaisedFunds = Number(valuationData.publicSalePrice.replace(/,/g, '')) * Number(valuationData.publicSaleAllocation.replace(/,/g, ''));
 
   return (
     <>

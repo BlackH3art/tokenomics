@@ -71,7 +71,7 @@ export const TokenV1: FC = () => {
         allocations={allocations}
       />
 
-      <Valuation />
+      <Valuation variant={1} />
 
       <MintTokens 
         contractAddres={tokenContractAddress}

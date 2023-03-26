@@ -13,3 +13,19 @@
     Blank7 deployed to: 0xAf997a85a29f5c9E8A88D696086539E17a67911d
 
     Blank8 deployed to: 0xafFD814aFdE5f6F5f76A14ea0a1293627b2cFb3f
+
+    Blank9 deployed to: 0xD306fB799A9Fe6d857d8Ea558ba9f9d2a129adDc
+
+    Blank10 deployed to: 0x4bcF37FB9C7b491644f31A0673d42cc67e199AAB
+
+    Blank11 deployed to: 0x5d5ae47feD9383f369F178C8ac5BD36aFFB78b11
+
+    Blank12 deployed to: 0x0bBdB60467C6Ded69caB84aa13CC97E93bA5d570
+
+    Blank13 deployed to: 0xf7D971066b73929E0a027b82c12fe1FfE968f300
+
+    Blank14 deployed to: 0x6D161aF3502cc830383747B741C0a2A4f7655516
+
+    Blank15 deployed to: 0xF8b157218eDCa24f33aB2531E25C3EAa2d53768c
+
+    Blank16 deployed to: 0x39d880b23b7653601a4640C47e72BF185fc8b675

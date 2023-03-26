@@ -1,8 +1,13 @@
 import { FC, ChangeEventHandler, ChangeEvent, useState, useContext } from "react";
 import { PriceContext } from "../../../context/PriceContext";
+import { numberWithCommas } from "../../../utils/comaSeparator";
 import { ValuationRow } from "../ValuationRow/ValuationRow";
 
-export const Valuation: FC = () => {
+interface Props {
+  variant: number;
+}
+
+export const Valuation: FC<Props> = ({ variant }) => {
 
   const [valuationData, setValuationData] = useState({
     capitalization: "",
@@ -12,22 +17,30 @@ export const Valuation: FC = () => {
     privateSalePrice: "",
     privateSaleAllocation: "",
     publicSalePrice: "",
-    publicSaleAllocation: ""
+    publicSaleAllocation: "",
+    marketingFunds: "",
+    developmentFunds: "",
+    givenTokenPrice: "",
   });
   const { ethereumPrice } = useContext(PriceContext);
 
 
   const handleChange: ChangeEventHandler = (e: ChangeEvent<HTMLInputElement>) => {
+
+    if(isNaN(Number(e.target.value.replace(/,/g, '')))) return;
+    
     setValuationData({
       ...valuationData,
-      [e.target.name]: e.target.value
+      [e.target.name]: numberWithCommas(e.target.value.replace(/,/g, ''))
     });
   }
 
-  const pricePerToken = Number(valuationData.capitalization) / Number(valuationData.totalSupply);
-  const liquidityValue = Number(valuationData.liquidityPoolPrice) * Number(valuationData.liquidityAllocation);
-  const privateRaisedFunds = Number(valuationData.privateSalePrice) * Number(valuationData.privateSaleAllocation);
-  const publiclyRaisedFunds = Number(valuationData.publicSalePrice) * Number(valuationData.publicSaleAllocation);
+  const pricePerToken = Number(valuationData.capitalization.replace(/,/g, '')) / Number(valuationData.totalSupply.replace(/,/g, ''));
+  const liquidityValue = Number(valuationData.liquidityPoolPrice.replace(/,/g, '')) * Number(valuationData.liquidityAllocation.replace(/,/g, ''));
+  const privateRaisedFunds = Number(valuationData.privateSalePrice.replace(/,/g, '')) * Number(valuationData.privateSaleAllocation.replace(/,/g, ''));
+  const publiclyRaisedFunds = Number(valuationData.publicSalePrice.replace(/,/g, '')) * Number(valuationData.publicSaleAllocation.replace(/,/g, ''));
+  const marketingFunds = Number(valuationData.marketingFunds.replace(/,/g, '')) * Number(valuationData.givenTokenPrice.replace(/,/g, ''));
+  const developmentFunds = Number(valuationData.developmentFunds.replace(/,/g, '')) * Number(valuationData.givenTokenPrice.replace(/,/g, ''));
 
   return (
     <>
@@ -35,7 +48,7 @@ export const Valuation: FC = () => {
         <div className="w-full flex flex-col md:w-4/5 xl:w-3/5 border-[1px] border-gray-500 px-10 py-10">
 
           <h1 className="text-xl font-semibold">
-            Valuation
+            Valuation Variant {variant}
           </h1>
 
 
@@ -99,6 +112,35 @@ export const Valuation: FC = () => {
             sign="*"
           />
 
+          <ValuationRow 
+            firstLabel="Marketing funds"
+            firstInputName="marketingFunds"
+            firstInputPlaceholder="tokens amount"
+            firstInputValue={valuationData.marketingFunds}
+            secondLabel="Token price"
+            secondInputName="givenTokenPrice"
+            secondInputPlaceholder="token price"
+            secondInputValue={valuationData.givenTokenPrice}
+            resultLabel="Marketing funds"
+            resultValue={isNaN(marketingFunds) ? "0" : `$${new Intl.NumberFormat('en-US', { }).format(marketingFunds)} / ${(marketingFunds / Number(ethereumPrice)).toFixed(4)} ETH`}
+            handleChange={handleChange}
+            sign="*"
+          />
+
+          <ValuationRow 
+            firstLabel="Development funds"
+            firstInputName="developmentFunds"
+            firstInputPlaceholder="tokens amount"
+            firstInputValue={valuationData.developmentFunds}
+            secondLabel="Token price"
+            secondInputName="givenTokenPrice"
+            secondInputPlaceholder="token price"
+            secondInputValue={valuationData.givenTokenPrice}
+            resultLabel="Marketing funds"
+            resultValue={isNaN(developmentFunds) ? "0" : `$${new Intl.NumberFormat('en-US', { }).format(developmentFunds)} / ${(developmentFunds / Number(ethereumPrice)).toFixed(4)} ETH`}
+            handleChange={handleChange}
+            sign="*"
+          />
           
         </div>
       </section>

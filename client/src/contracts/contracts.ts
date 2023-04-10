@@ -1,6 +1,7 @@
 import tokenV1ABI from './tokenV1.json';
 import tokenV2ABI from './tokenV2.json';
 import tokenV3ABI from './tokenV3.json';
+import tokenV4ABI from './tokenV4.json';
 
 // goerli
 export const tokenContractAddress = "0x2deDC99E439BB68528ADA37A1B786952F8ec2c9C";
@@ -11,3 +12,6 @@ export const tokenABIv2 = tokenV2ABI;
 
 export const tokenContractAddressV3 = "0xB03DAdA47FC04415a8A5cd5a9c9132768F08C562";
 export const tokenABIv3 = tokenV3ABI;
+
+export const tokenContractAddressV4 = "0x3e8eDddbB8a1F8511455A5111e1B4E2D3b80f013";
+export const tokenABIv4 = tokenV4ABI;

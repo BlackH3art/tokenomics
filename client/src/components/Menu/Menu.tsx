@@ -15,6 +15,7 @@ export const Menu: FC = () => {
           <MenuElement title="Token V1" to="/tokenV1" />
           <MenuElement title="Token V2" to="/tokenV2" />
           <MenuElement title="Token V3" to="/tokenV3" />
+          <MenuElement title="Token V4" to="/tokenV4" />
         </ul>
 
       </div>
